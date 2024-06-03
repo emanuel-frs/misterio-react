@@ -29,7 +29,7 @@ input{
 }
 
 .password{
-  margin-bottom: 5px;
+  margin-bottom: 14px;
 }
 
 a{
@@ -72,13 +72,16 @@ a{
 }
 
 .logoFacebook{
+  margin-top: -5px;
+  font-size: 10px;
+  margin-bottom: 60px;
   width: 100px;
 }
 
-.face{
-  margin-top: -15px;
-  font-size: 10px;
-  margin-bottom: 60px;
+.face a{
+  width: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .forget{
@@ -100,6 +103,7 @@ a{
   border-radius: 0 0 22px 22px;
   font-size: 10px;
   padding: 15px 30px;
+  font-size: 10px;
 }
 
 .bottomContainer a{
@@ -109,7 +113,7 @@ a{
 
 .or{
   font-size: 11px;
-  margin-top: 15px;
+  margin-top: 17px;
   margin-bottom: 20px;
 }
 
@@ -123,6 +127,18 @@ a{
   opacity: 1;
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.erroEmail{
+  margin-top: 3px;
+  font-size: 11px;
+  color: rgb(0, 247, 255);
+}
+
+.erroSenha{
+  margin-top: 3px;
+  font-size: 11px;
+  color: rgb(0, 247, 255);
 }
 
 @keyframes fadeInUp {
@@ -139,4 +155,16 @@ a{
   100% {
       --init: 1;
   }
+}
+
+.btn:hover{
+  background-color: rgb(24, 108, 177);
+}
+
+.forget a:hover{
+  color: rgb(94, 255, 0);
+}
+
+.bottomContainer a:hover{
+  color: rgb(94, 255, 0);
 }

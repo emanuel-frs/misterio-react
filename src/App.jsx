@@ -7,6 +7,8 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [erroEmail, setErroEmail] = useState(false);
+  const [erroPassword, setErroPassword] = useState(false);
 
   const buttonClick = () => {
     setButtonClicked(true);
@@ -33,11 +35,14 @@ function App() {
       const loginValido = ["email@email.com", "12345"];
       setButtonClicked(false);
       if(email == loginValido[0] && password == loginValido[1]) {
-        alert(`Bem vindo ${email}`);
+        setErroEmail(false);
+        setErroPassword(false);
+        alert(`Bem vindo ao Instagram!`);
       }else if(email == loginValido[0] && password != loginValido[1]){
-        alert("Senha incorreta!")
+        setErroPassword(true);
+        setErroEmail(false);
       }else if(email != loginValido[0]){
-        alert("Email incorreta!") 
+        setErroEmail(true);
       }
     }
   }, [buttonClicked, email, password]);
@@ -51,6 +56,7 @@ function App() {
           </a>
           <form onSubmit={handleSubmit}>
             <div className={style.email}>
+              {erroEmail && <p className={style.erroEmail}>Email inválido</p>}
               <input 
                 type="text" 
                 placeholder="Phone number, username or email address" 
@@ -70,14 +76,15 @@ function App() {
                 className={style.password}
                 aria-label="Password"
               />
+              {erroPassword && <p className={style.erroSenha}>Senha inválida</p>}
             </div>
-            <div className='forget'>
+            <div className={style.forget}>
               <a href="https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1">Forgotten password?</a>
             </div>
             <button type="submit" className={style.btn} onClick={buttonClick}>Login</button>
           </form>
           <p className={style.or}>------------------------------------------- or -------------------------------------------</p>
-          <a href="https://www.facebook.com/?locale=pt_BR" className='face'>
+          <a href="https://www.facebook.com/?locale=pt_BR" className={style.face}>
             <img src={logoFacebook} alt='Facebook Logo' className={style.logoFacebook}/>
           </a>
         </div>
