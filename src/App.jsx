@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import style from './style.module.css';
 import logoFacebook from './assets/LogoFacebook.png';
 import logoInstagram from './assets/LogoInstagram.png';
@@ -6,13 +6,14 @@ import logoInstagram from './assets/LogoInstagram.png';
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [erroEmail, setErroEmail] = useState(false);
-  const [erroPassword, setErroPassword] = useState(false);
-
-  const buttonClick = () => {
-    setButtonClicked(true);
-  };
+  const [loginCheck, setLoginCheck] = useState(0);
+  const [loginInvalido, setLoginInvalido] = useState(false);
+  
+  const usuarios = useMemo(() => [
+    { email: "emanuel", password: "12345" },
+    { email: "pedro", password: "123456" },
+    { email: "joao", password: "1234" }
+  ], []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,28 +25,21 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    console.log('Email:', email);
-    console.log('Password:', password);
-    
+    setLoginCheck(loginCheck + 1);
   };
 
   useEffect(() => {
-    if (buttonClicked) {
-      const loginValido = ["email@email.com", "12345"];
-      setButtonClicked(false);
-      if(email == loginValido[0] && password == loginValido[1]) {
-        setErroEmail(false);
-        setErroPassword(false);
-        alert(`Bem vindo ao Instagram!`);
-      }else if(email == loginValido[0] && password != loginValido[1]){
-        setErroPassword(true);
-        setErroEmail(false);
-      }else if(email != loginValido[0]){
-        setErroEmail(true);
+    const usuario = usuarios.find((usuario) => usuario.email === email && usuario.password === password);
+    if(loginCheck > 0){
+      if(usuario){
+        alert("Bem vindo!");
+        setLoginInvalido(false);
+      }else{
+        setLoginInvalido(true);
       }
     }
-  }, [buttonClicked, email, password]);
+    }, [loginCheck,email,password,usuarios]
+  );
 
   return (
     <>
@@ -54,9 +48,8 @@ function App() {
           <a href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1">
             <img src={logoInstagram} alt="Instagram Logo" className={style.logoInsta}/>
           </a>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className={style.email}>
-              {erroEmail && <p className={style.erroEmail}>Email inválido</p>}
               <input 
                 type="text" 
                 placeholder="Phone number, username or email address" 
@@ -76,12 +69,12 @@ function App() {
                 className={style.password}
                 aria-label="Password"
               />
-              {erroPassword && <p className={style.erroSenha}>Senha inválida</p>}
             </div>
+            {loginInvalido && <p className={style.erro}>Email ou senha inválido</p>}
             <div className={style.forget}>
               <a href="https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1">Forgotten password?</a>
             </div>
-            <button type="submit" className={style.btn} onClick={buttonClick}>Login</button>
+            <button type="submit" className={style.btn} onClick={handleSubmit}>Login</button>
           </form>
           <p className={style.or}>------------------------------------------- or -------------------------------------------</p>
           <a href="https://www.facebook.com/?locale=pt_BR" className={style.face}>

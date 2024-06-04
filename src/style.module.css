@@ -128,14 +128,7 @@ a{
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease-out forwards;
 }
-
-.erroEmail{
-  margin-top: 3px;
-  font-size: 11px;
-  color: rgb(0, 247, 255);
-}
-
-.erroSenha{
+.erro{
   margin-top: 3px;
   font-size: 11px;
   color: rgb(0, 247, 255);
