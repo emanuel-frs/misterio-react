@@ -10,9 +10,9 @@ function App() {
   const [loginInvalido, setLoginInvalido] = useState(false);
   
   const usuarios = useMemo(() => [
-    { email: "emanuel", password: "12345" },
-    { email: "pedro", password: "123456" },
-    { email: "joao", password: "1234" }
+    { email: "emanuel@gmail.com", password: "12345" },
+    { email: "pedro@gmail.com", password: "123456" },
+    { email: "joao@gmail.com", password: "1234567" }
   ], []);
 
   const handleEmailChange = (e) => {
